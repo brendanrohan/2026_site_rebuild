@@ -1,16 +1,59 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Brendan Rohan | Strategy focused Product Designer | MVP Portfolio</title>
-	</head>
-	<body>
-<h1> About </h1>
-        </body>
+<BaseLayout>
+	<main class="max-w-4xl mx-auto px-6 py-16">
+		<h1 class="text-3xl font-bold text-gray-900 mb-12">About</h1>
+
+		<!-- Skills Tabs Section (moved from index) -->
+		<section id="skills" class="py-16 border-b border-gray-200">
+			<!-- Tab labels -->
+			<div class="flex gap-8 mb-10">
+				<button data-tab="early-adopter" class="about-tab text-sm font-medium pb-1 transition-colors text-gray-900 border-b-2 border-gray-900">Early Adopter</button>
+				<button data-tab="systems-thinker" class="about-tab text-sm font-medium pb-1 transition-colors text-gray-400 border-b-2 border-transparent">Systems Thinker</button>
+				<button data-tab="collaborator" class="about-tab text-sm font-medium pb-1 transition-colors text-gray-400 border-b-2 border-transparent">Collaborate & Translate</button>
+			</div>
+
+			<!-- Tab content -->
+			<div id="tab-early-adopter" class="about-panel">
+				<p class="text-2xl font-medium text-gray-900 leading-snug max-w-2xl mb-10">
+					I've built for voice, mobile, and AI before they were trends. Curiosity about what's coming next isn't a side interest — it's how I've always worked.
+				</p>
+			</div>
+
+			<div id="tab-systems-thinker" class="about-panel hidden">
+				<p class="text-2xl font-medium text-gray-900 leading-snug max-w-2xl mb-10">
+					Changes to one touchpoint can affect everything. I map those connections first, so design decisions account for what happens downstream.
+				</p>
+			</div>
+
+			<div id="tab-collaborator" class="about-panel hidden">
+				<p class="text-2xl font-medium text-gray-900 leading-snug max-w-2xl mb-10">
+					The hardest part of enterprise design isn't the interface — it's getting researchers, engineers, product owners, and business leads to a shared understanding of what to build. That's where I add the most value.
+				</p>
+			</div>
+		</section>
+
+		<script>
+			const tabs = document.querySelectorAll<HTMLButtonElement>('.about-tab');
+			const panels = document.querySelectorAll<HTMLElement>('.about-panel');
+
+			tabs.forEach(tab => {
+				tab.addEventListener('click', () => {
+					const target = tab.dataset.tab;
+
+					tabs.forEach(t => {
+						t.classList.remove('text-gray-900', 'border-gray-900');
+						t.classList.add('text-gray-400', 'border-transparent');
+					});
+					tab.classList.add('text-gray-900', 'border-gray-900');
+					tab.classList.remove('text-gray-400', 'border-transparent');
+
+					panels.forEach(p => p.classList.add('hidden'));
+					document.getElementById(`tab-${target}`)?.classList.remove('hidden');
+				});
+			});
+		</script>
+	</main>
+</BaseLayout>
